@@ -27,7 +27,7 @@ client = MongoClient(mongouri)  # Client makes connection
 
 db = client['ww-test']  # Select database
 
-@app.route('/sales/repeater', methods=['POST'])
+@app.route('/cars', methods=['POST'])
 def sales():
     data = request.get_json()
     cars = db.cars.find()
