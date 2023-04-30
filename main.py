@@ -29,7 +29,6 @@ db = client['ww-test']  # Select database
 
 @app.route('/cars', methods=['GET'])
 def sales():
-    data = request.get_json()
     cars = db.cars.find()
     cars = json.loads(json_util.dumps(cars))
     for i in cars:
