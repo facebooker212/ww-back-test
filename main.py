@@ -35,6 +35,15 @@ def sales():
         i["_id"] = str(i["_id"]["$oid"])
     return cars
 
+
+@app.route('/id', methods=['POST'])
+def car_id():
+    _id = request.get_json()
+    id = _id["id"]
+    car = db.cars.find_one({"_id": ObjectId(id)})
+    car = json.loads(json_util.dumps(car))
+    return car
+
 if __name__ == '__main__':
     from waitress import serve
     # For local testing
