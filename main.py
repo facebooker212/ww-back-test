@@ -42,6 +42,7 @@ def car_id():
     id = _id["id"]
     car = db.cars.find_one({"_id": ObjectId(id)})
     car = json.loads(json_util.dumps(car))
+    car["_id"] = str(car["_id"]["$oid"])
     return car
 
 if __name__ == '__main__':
