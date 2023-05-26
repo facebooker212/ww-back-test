@@ -45,6 +45,31 @@ def car_id():
     car["_id"] = str(car["_id"]["$oid"])
     return car
 
+@app.route('details_list', methods=['GET'])
+def details_list():
+    cars = db.cars.find()
+    cars = jsson.loads(json_.dumps(cars))
+
+    make = []
+    model = []
+    year = []
+
+    for doc in cars:
+        make_value = doc['make']
+        model_value = doc['model']
+        year_value = doc['year']
+
+        if make_value not in make:
+            make.append(make_value)
+        if model_value not in model:
+            model.append(model_value)
+        if year_value not in year:
+            year.append(year_value)
+
+    result = {'make': make, 'model': model, 'year': year}
+
+    return jsonify(result)
+
 if __name__ == '__main__':
     from waitress import serve
     # For local testing
