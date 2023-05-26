@@ -48,7 +48,7 @@ def car_id():
 @app.route('/details_list', methods=['GET'])
 def details_list():
     cars = db.cars.find()
-    cars = jsson.loads(json_.dumps(cars))
+    cars = json.loads(json_util.dumps(cars))
 
     make = []
     model = []
@@ -69,6 +69,19 @@ def details_list():
     result = {'make': make, 'model': model, 'year': year}
 
     return jsonify(result)
+
+@app.route('/find_car', methods=['POST'])
+def find_car():
+    details = request.get_json()
+    make = details["make"]
+    model = details["model"]
+    year = details["year"]
+
+    car = db.cars.find_one({"make": make, "model": model, "year": year})
+    car = json.loads(json_util.dumps(car))
+    car["_id"] = str(car["_id"]["$oid"])
+    
+    return car
 
 if __name__ == '__main__':
     from waitress import serve
