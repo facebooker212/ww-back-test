@@ -45,7 +45,7 @@ def car_id():
     car["_id"] = str(car["_id"]["$oid"])
     return car
 
-@app.route('details_list', methods=['GET'])
+@app.route('/details_list', methods=['GET'])
 def details_list():
     cars = db.cars.find()
     cars = jsson.loads(json_.dumps(cars))
